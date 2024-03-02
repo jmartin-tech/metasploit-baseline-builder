@@ -84,7 +84,7 @@ def build_base(packer_var_file, common_vars, packerfile, replace_existing, vmSer
     try:
         p.build(parallel=True, debug=False, force=False)
     except sh.ErrorReturnCode:
-        print "Error: build of " + prependString + vm_name + " returned non-zero"
+        print("Error: build of " + prependString + vm_name + " returned non-zero")
         return p
 
     if vmServer.get_esxi() is not None:
@@ -105,15 +105,15 @@ def main(argv):
     try:
         opts, args = getopt.getopt(argv[1:], "c:fhp:r", ["esxiConfig=", "factory", "help", "prependString=", "replace"])
     except getopt.GetoptError:
-        print argv[0] + ' -n <numProcessors>'
+        print(argv[0] + ' -n <numProcessors>')
         sys.exit(2)
     for opt, arg in opts:
         if opt in ("-h", "--help"):
-            print argv[0] + " [options]"
-            print '-c <file>, --esxiConfig=<file>       use alternate hypervisor config file'
-            print '-f, --factory                        builds system without additional packages'
-            print '-p <string>, --prependString=<file>  prepend string to the beginning of VM names'
-            print '-r, --replace                        replace existing msf_host'
+            print(argv[0] + " [options]")
+            print('-c <file>, --esxiConfig=<file>       use alternate hypervisor config file')
+            print('-f, --factory                        builds system without additional packages')
+            print('-p <string>, --prependString=<file>  prepend string to the beginning of VM names')
+            print('-r, --replace                        replace existing msf_host')
             sys.exit()
         elif opt in ("-c", "--esxiConfig"):
             esxi_file = arg
@@ -141,7 +141,7 @@ def main(argv):
             for pattern in common_vars['file_patterns']:
                 targets.extend(glob.glob(pattern))
 
-            print "\nBuilding " + str(len(targets)) + " " + os_dir.capitalize() + " baselines:"
+            print("\nBuilding " + str(len(targets)) + " " + os_dir.capitalize() + " baselines:")
             for target in tqdm(targets):
                 build_base(target, common_vars, packer_file, replace_existing=replace_vms, vmServer=vm_server, prependString=prependString, factory_image=factory_image)
 

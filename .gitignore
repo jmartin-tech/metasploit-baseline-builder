@@ -1,5 +1,6 @@
 /tmp
 /.idea
+/.vscode
 /box
 /iso
 /answer_files/windows/Autounattend.xml
